@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Christmas Advent Calendar 2025</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        :root {
+            /* Modern 2025 Color Palette */
+            --color-bg: #f7fef0;
+            --color-surface: #ffffff;
+            --color-primary: #9e2a2b;
+            --color-secondary: #284b63;
+            --color-accent: #e09f3e;
+            --color-text: #2d3748;
+            --color-text-light: #6b7280;
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, var(--color-primary), #b33c3e);
+            --gradient-secondary: linear-gradient(135deg, var(--color-secondary), #3a5c7a);
+            --gradient-accent: linear-gradient(135deg, var(--color-accent), #e8b15c);
+            
+            /* Shadows and effects */
+            --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.15);
+            --shadow-modal: 0 25px 50px rgba(0, 0, 0, 0.25);
+            
+            /* Transitions */
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(224, 159, 62, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(158, 42, 43, 0.1) 0%, transparent 20%);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            animation: fadeIn 1s ease;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--color-text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .calendar-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1.25rem;
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Card-based Day Design */
+        .day {
+            background-color: var(--color-surface);
+            border-radius: 16px;
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .day::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: var(--transition-smooth);
+            z-index: 1;
+        }
+
+        .day:hover::before {
+            opacity: 0.05;
+        }
+
+        /* Micro-interaction: Hover Animation */
+        .day:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .day:active {
+            transform: translateY(-2px) scale(0.98);
+            transition: transform 0.1s ease;
+        }
+
+        .day-number {
+            position: relative;
+            z-index: 2;
+            color: var(--color-primary);
+            transition: var(--transition-smooth);
+        }
+
+        .day:hover .day-number {
+            color: var(--color-primary);
+            transform: scale(1.1);
+        }
+
+        .day-date {
+            font-size: 0.7rem;
+            color: var(--color-text-light);
+            margin-top: 0.25rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Pulsing animation for current day */
+        .day.current {
+            animation: pulse-gentle 2s infinite;
+            background: var(--gradient-accent);
+        }
+
+        .day.current .day-number {
+            color: white;
+        }
+
+        @keyframes pulse-gentle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Modern Modal Design */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: var(--color-surface);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-modal);
+            position: relative;
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--color-bg);
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            color: var(--color-primary);
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--color-text-light);
+            transition: var(--transition-smooth);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background-color: var(--color-bg);
+            color: var(--color-primary);
+            transform: rotate(90deg);
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: var(--color-text);
+        }
+
+        .question-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-soft);
+        }
+
+        /* Modern Button with Micro-interactions */
+        .answer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-soft);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .answer-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .answer-link:hover::before {
+            left: 100%;
+        }
+
+        .answer-link:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .answer-link:active {
+            transform: translateY(0);
+        }
+
+        .answer-container {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background-color: var(--color-bg);
+            border-radius: 12px;
+            border-left: 4px solid var(--color-accent);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .answer-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--color-text);
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            color: var(--color-text-light);
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .calendar-container {
+                grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+                gap: 1rem;
+            }
+            
+            .day {
+                font-size: 1.3rem;
+                border-radius: 12px;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+            
+            .modal-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calendar-container {
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .day {
+                font-size: 1.2rem;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Адвент-календарь <br> с вопросами</h1>
+        <p class="subtitle">Discover a festive quiz question each day. Click on a card to reveal today's surprise!</p>
+    </header>
+
+    <main>
+        <div class="calendar-container" id="calendar">
+            <!-- Days 1-25 will be generated by JavaScript -->
+        </div>
+    </main>
+
+    <footer>
+        <p>Ай виш ю э Мэрри Крисмас!</p>
+    </footer>
+
+    <!-- Modern Modal for displaying questions -->
+    <div class="modal" id="questionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalDayTitle">Day 1</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div id="modalContent">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modern color palette quiz data
+        const quizData = [
+            {
+                day: 1,
+                question: "In the famous Christmas song, what did my true love give to me on the first day of Christmas?",
+                image: 'https://i.pinimg.com/736x/41/24/b7/4124b755af88999cda45e1a1dda569a3.jpg',
+                answer: "A partridge in a pear tree"
+            },
+            {
+                day: 2,
+                question: "Which popular Christmas beverage is also called 'milk punch'?",
+                image: null,
+                answer: "Eggnog"
+            },
+            {
+                day: 3,
+                question: "What is the name of the reindeer with a red nose?",
+                image: null,
+                answer: "Rudolph"
+            },
+            {
+                day: 4,
+                question: "In which country did the tradition of putting up Christmas trees originate?",
+                image: null,
+                answer: "Germany"
+            },
+            {
+                day: 5,
+                question: "What are the two other most popular names for Santa Claus?",
+                image: null,
+                answer: "Saint Nicholas and Kris Kringle"
+            },
+            {
+                day: 6,
+                question: "Which plant, known for its red and green colors, is a popular Christmas decoration?",
+                image: null,
+                answer: "Poinsettia"
+            },
+            {
+                day: 7,
+                question: "In the movie 'Home Alone', where are the McCallisters going on vacation when they leave Kevin behind?",
+                image: null,
+                answer: "Paris, France"
+            },
+            {
+                day: 8,
+                question: "What sweet, festive treat is often left out for Santa Claus?",
+                image: null,
+                answer: "Cookies"
+            },
+            {
+                day: 9,
+                question: "Which author wrote 'A Christmas Carol'?",
+                image: null,
+                answer: "Charles Dickens"
+            },
+            {
+                day: 10,
+                question: "What is the name of the snowman in the movie 'Frozen'?",
+                image: null,
+                answer: "Olaf"
+            },
+            {
+                day: 11,
+                question: "In the song 'Jingle Bells', what kind of sleigh is mentioned?",
+                image: null,
+                answer: "One-horse open sleigh"
+            },
+            {
+                day: 12,
+                question: "Which country started the tradition of sending Christmas cards?",
+                image: null,
+                answer: "England"
+            },
+            {
+                day: 13,
+                question: "What is the main ingredient in gingerbread men?",
+                image: null,
+                answer: "Ginger"
+            },
+            {
+                day: 14,
+                question: "How many ghosts appear in 'A Christmas Carol'?",
+                image: null,
+                answer: "Four (Jacob Marley and the Ghosts of Christmas Past, Present, and Yet to Come)"
+            },
+            {
+                day: 15,
+                question: "What is the name of the little boy in 'The Polar Express'?",
+                image: null,
+                answer: "Hero Boy (he's never named in the film)"
+            },
+            {
+                day: 16,
+                question: "Which popular Christmas song was actually written for Thanksgiving?",
+                image: null,
+                answer: "'Jingle Bells'"
+            },
+            {
+                day: 17,
+                question: "What does the French word 'Noël' mean?",
+                image: null,
+                answer: "Christmas"
+            },
+            {
+                day: 18,
+                question: "In 'How the Grinch Stole Christmas', what is the name of the Grinch's dog?",
+                image: null,
+                answer: "Max"
+            },
+            {
+                day: 19,
+                question: "Which real-life person was the inspiration for the character of Santa Claus?",
+                image: null,
+                answer: "Saint Nicholas, a 4th-century Greek bishop"
+            },
+            {
+                day: 20,
+                question: "What is the name of the town where the movie 'A Christmas Story' takes place?",
+                image: null,
+                answer: "Hohman, Indiana"
+            },
+            {
+                day: 21,
+                question: "Which country has a tradition of eating KFC for Christmas dinner?",
+                image: null,
+                answer: "Japan"
+            },
+            {
+                day: 22,
+                question: "What is the name of the main character in 'The Nutcracker'?",
+                image: null,
+                answer: "Clara (or Marie, depending on the version)"
+            },
+            {
+                day: 23,
+                question: "Which plant is traditionally kissed under at Christmas?",
+                image: null,
+                answer: "Mistletoe"
+            },
+            {
+                day: 24,
+                question: "In the Bible, which animals are mentioned in the nativity scene?",
+                image: null,
+                answer: "Sheep (or lambs)"
+            },
+            {
+                day: 25,
+                question: "What is the name of Scrooge's deceased business partner in 'A Christmas Carol'?",
+                image: null,
+                answer: "Jacob Marley"
+            }
+        ];
+
+        // Generate modern calendar days
+        const calendarContainer = document.getElementById('calendar');
+        
+        for (let i = 1; i <= 25; i++) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'day';
+            dayElement.setAttribute('data-day', i);
+            
+            // Add current day class for today's date (for demo, using day 1)
+            if (i === new Date().getDate() && new Date().getMonth() === 11) {
+                dayElement.classList.add('current');
+            }
+            
+            dayElement.innerHTML = `
+                <span class="day-number">${i}</span>
+                
+            `;
+            calendarContainer.appendChild(dayElement);
+        }
+
+        // Modern modal elements
+        const modal = document.getElementById('questionModal');
+        const modalDayTitle = document.getElementById('modalDayTitle');
+        const modalContent = document.getElementById('modalContent');
+        const closeBtn = document.querySelector('.close-btn');
+
+        // Function to open modal with smooth animation
+        function openModal(day) {
+            const quizItem = quizData.find(item => item.day === day);
+            
+            if (quizItem) {
+                modalDayTitle.textContent = `День ${day}`;
+                
+                let contentHTML = `
+                    <p class="question-text">${quizItem.question}</p>
+                `;
+                
+                if (quizItem.image) {
+                    contentHTML += `<img src="${quizItem.image}" alt="Question image" class="question-image">`;
+                }
+                
+                contentHTML += `
+                    <button class="answer-link" id="showAnswer">
+                        <span>Показать ответ</span>
+                    </button>
+                    <div class="answer-container" id="answerContainer">
+                        <p class="answer-text">${quizItem.answer}</p>
+                    </div>
+                `;
+                
+                modalContent.innerHTML = contentHTML;
+                
+                // Show modal with animation
+                modal.classList.add('active');
+                
+                // Prevent body scrolling when modal is open
+                document.body.style.overflow = 'hidden';
+                
+                // Add event listener for the answer button
+                document.getElementById('showAnswer').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const answerContainer = document.getElementById('answerContainer');
+                    answerContainer.style.display = 'block';
+                    this.style.display = 'none';
+                });
+            }
+        }
+
+        // Close modal with smooth animation
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking the close button
+        closeBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside the content
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Add click event to all day elements using event delegation
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('calendar').addEventListener('click', function(e) {
+                const dayElement = e.target.closest('.day');
+                if (dayElement) {
+                    const day = parseInt(dayElement.getAttribute('data-day'));
+                    openModal(day);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
